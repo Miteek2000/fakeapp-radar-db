@@ -1,0 +1,13 @@
+# Secretos: nunca se suben
+.env
+.env.*
+!.env.example
+
+# Respaldos y volcados de la base de datos
+backups/
+*.dump
+*.sql.bak
+
+# Sistema
+Thumbs.db
+.DS_Store
