@@ -1,6 +1,8 @@
 # Esquema de la base de datos
 
-Las tablas las crea Alembic desde `fakeapp-radar-api`. Este documento es la referencia del diseño.
+Las tablas las crean las migraciones de este repo (`migrator/migrations/versions/`). Este documento es la referencia del diseño.
+
+Estado: ya existen `analyses` (0001) y `permission_catalog` (0002). Las demás llegan en fases siguientes.
 
 ```mermaid
 erDiagram

@@ -1,3 +1,5 @@
+# Base de datos de FakeApp Radar: PostgreSQL + migraciones + catálogo inicial.
+# Arranca ESTO primero y luego la API (repo fakeapp-radar-api).
 services:
   db:
     image: postgres:16-alpine
@@ -8,7 +10,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Falta POSTGRES_PASSWORD en .env}
       POSTGRES_DB: ${POSTGRES_DB:?Falta POSTGRES_DB en .env}
     ports:
-      - "127.0.0.1:5433:5432"
+      - "127.0.0.1:5433:5432"   # solo tu computadora (útil para DBeaver o psql)
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./init:/docker-entrypoint-initdb.d:ro
@@ -17,6 +19,31 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+    networks:
+      - fakeapp-net
+
+  # Aplica las migraciones y carga el catálogo; después se apaga (Exited 0 es lo correcto).
+  migrate:
+    build:
+      context: .
+      dockerfile: migrator/Dockerfile
+    image: fakeapp-radar-db-migrator:dev
+    environment:
+      POSTGRES_HOST: fakeapp-db
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - fakeapp-net
+    restart: "no"
+
+networks:
+  # Red compartida con la API: así la API llega a la base sin publicar más puertos.
+  fakeapp-net:
+    name: fakeapp-net
 
 volumes:
   pgdata:
