@@ -2,7 +2,7 @@
 
 Las tablas las crean las migraciones de este repo (`migrator/migrations/versions/`). Este documento es la referencia del diseño.
 
-Estado: ya existen `analyses` (0001) y `permission_catalog` (0002). Las demás llegan en fases siguientes.
+Estado: ya existen `analyses` (0001), `permission_catalog` (0002) sus columnas de fuentes (0003) y la marca `curated` (0004). El catálogo trae 1059 permisos (52 curados); ver `docs/fuentes.md`. Las demás llegan en fases siguientes.
 
 ```mermaid
 erDiagram
@@ -46,6 +46,9 @@ erDiagram
     text severity
     smallint weight
     text icon
+    text protection_level
+    text source
+    boolean curated
   }
   analysis_permissions {
     uuid analysis_id PK

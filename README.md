@@ -10,6 +10,9 @@ Todo lo de base de datos de FakeApp Radar: contenedor de PostgreSQL, tablas (mig
 
 Los dos servicios comparten con la API la red Docker `fakeapp-net` (la crea este compose).
 
+## Red
+`fakeapp-net` es una red **interna** (sin salida a internet) compartida con la API. Si la creaste antes de la fase 6 y Docker se queja de que cambió, baja ambos repos con `docker compose down` (sin `-v`, así no se borran los datos) y vuelve a levantarlos: primero este.
+
 ## Estructura
 | Carpeta | Qué tiene |
 |---|---|

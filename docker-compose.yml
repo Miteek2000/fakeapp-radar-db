@@ -20,6 +20,7 @@ services:
       timeout: 5s
       retries: 10
     networks:
+      - default      # necesaria para publicar el puerto 5433 en tu PC
       - fakeapp-net
 
   # Aplica las migraciones y carga el catálogo; después se apaga (Exited 0 es lo correcto).
@@ -42,8 +43,10 @@ services:
 
 networks:
   # Red compartida con la API: así la API llega a la base sin publicar más puertos.
+  # Es INTERNA (sin salida a internet): los contenedores que solo viven aquí no pueden salir.
   fakeapp-net:
     name: fakeapp-net
+    internal: true
 
 volumes:
   pgdata:
