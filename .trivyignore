@@ -1,0 +1,4 @@
+# Falso positivo documentado (ver docs/seguridad): Trivy reporta setuptools 70.3.0, pero la imagen
+# tiene instalado setuptools 84.2.1 (la corrección está en 78.1.1). No se encontró ningún archivo
+# de esa versión en la imagen; el registro viene de metadatos que la imagen base arrastra.
+CVE-2025-47273

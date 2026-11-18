@@ -6,6 +6,12 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PIP_DEFAULT_TIMEOUT=120 \
     PIP_RETRIES=10
 
+# Parches de seguridad del sistema (p. ej. zlib) y herramientas de empaquetado al día (Trivy fase 11).
+RUN apt-get update \
+    && apt-get upgrade -y --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/* \
+    && pip install --upgrade pip setuptools wheel
+
 RUN useradd --create-home --uid 1000 app
 WORKDIR /migrator
 

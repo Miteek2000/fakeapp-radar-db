@@ -2,7 +2,9 @@
 # Arranca ESTO primero y luego la API (repo fakeapp-radar-api).
 services:
   db:
-    image: postgres:16-alpine
+    build:
+      context: ./postgres
+    image: fakeapp-radar-db-postgres:16
     container_name: fakeapp-db
     restart: unless-stopped
     environment:
