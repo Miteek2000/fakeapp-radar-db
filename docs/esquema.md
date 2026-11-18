@@ -2,7 +2,7 @@
 
 Las tablas las crean las migraciones de este repo (`migrator/migrations/versions/`). Este documento es la referencia del diseño.
 
-Estado: ya existen `analyses` (0001), `permission_catalog` (0002) sus columnas de fuentes (0003) y la marca `curated` (0004). El catálogo trae 1059 permisos (52 curados); ver `docs/fuentes.md`. Las demás llegan en fases siguientes.
+Estado: ya existen `analyses` (0001), `permission_catalog` (0002) sus columnas de fuentes (0003) y la marca `curated` (0004) y VirusTotal (0005: `vt_status`, `vt_malicious`, `vt_total` en `analyses` y la caché `vt_cache` por SHA-256). El catálogo trae 1059 permisos (52 curados); ver `docs/fuentes.md`. Las demás llegan en fases siguientes.
 
 ```mermaid
 erDiagram
@@ -49,6 +49,13 @@ erDiagram
     text protection_level
     text source
     boolean curated
+  }
+  vt_cache {
+    char sha256 PK
+    text status
+    smallint malicious
+    smallint total
+    timestamptz checked_at
   }
   analysis_permissions {
     uuid analysis_id PK
